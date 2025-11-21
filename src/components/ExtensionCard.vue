@@ -1,0 +1,181 @@
+<template>
+    <!-- <section class="card-section"> -->
+        <li class="card"> 
+            <h3>{{ isChecked ? 'TRUE' : 'FALSE' }}</h3>   
+            <div class="card-info">
+                <div class="card-img">
+                    <img :src="logo"/>
+                </div>
+                <div class="card-info-text">
+                    <h2>{{ name }}</h2>
+                    <p>{{description}} </p>
+                </div>
+            </div>
+            <div class="card-btns">
+                <button class="remove">Remove</button>
+                <button class="button-switch" >
+                    <label class="switch">
+                        <input type="checkbox" v-model="isChecked" />
+                        <span class="slider"></span>
+                    </label>
+                </button>
+            </div>
+        </li>
+</template>
+
+<script>
+export default {
+    props: {
+        id:{
+            type:String,
+            required:true,
+        },
+        logo: {
+            type:String,
+            required: true,
+        },
+        name:{
+            type:String,
+            required:true,
+        },
+        description:{
+            type:String,
+            required:true,
+        },
+        isActive: {
+            type:Boolean,
+            required:false,
+            default:true,
+        }
+    },
+    emits: ['toggle-is-active'],
+    data(){
+        return{
+            isChecked: false,
+            data: ''
+        }
+    },
+    watch: {
+        isChecked(){
+            this.toggleIsActive()
+        }    
+    },
+    methods: {
+        toggleIsActive(){
+             this.$emit('toggle-is-active', this.id)
+        }
+    }
+}
+
+</script>
+
+<style scoped>
+    /* .card-section{
+        width:100%;
+        margin-top: 15px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.8rem;
+        background-color: red;
+    } */
+    .card{
+        /* flex: 1; */
+        width: 100%;
+        min-width: 400px;
+        max-width: 410px;
+        padding:20px;
+        background-color:hsl(200, 60%, 99%);
+        border-radius: 20px;
+        box-shadow:0 1.5px 6px hsl(217, 61%, 90%);
+        margin-bottom: 5px;
+    }
+    .card-info {
+        display: flex;
+        flex-wrap: wrap;
+        text-align: left;
+        gap: 0.5rem;
+        margin-bottom: 30px;
+    }
+    .card-img  {
+        margin-right: 10px;
+        top:0px;
+    }
+    img{
+        object-fit: cover;
+        vertical-align: middle;
+    }
+    .card-info-text{
+        flex: 1;
+    }
+    .card-info-text h2{
+        color: hsl(227, 75%, 14%);
+        margin: 0px;
+        font-size: 22px;
+    }
+    .card-info-text p{
+        color: hsl(226, 11%, 37%);
+        font-size: 18px;
+    }
+    .card-btns{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .remove{
+        color:hsl(227, 75%, 14%);
+        padding: 7px 15px;
+        border-radius: 30px;
+        border: none;
+        box-shadow:0px 0px 2px 1.5px hsl(0, 0%, 93%);
+        background-color: hsl(200, 60%, 99%);
+        font-size: 15px;
+        cursor: pointer;
+    }
+    .button-switch{
+        border:none;
+        padding: 2px;
+        border-radius: 34px;
+    }
+    .switch{
+        position: relative;
+        display: inline-block;
+        width: 55px;
+        height: 30px;
+    }
+    .switch input{
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+    .slider{
+        position: absolute;
+        background-color: hsl(0, 0%, 78%);
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        transition: .4s;
+        cursor: pointer;
+        border-radius: 34px;
+    }
+    .slider::before{
+        position: absolute;
+        content: "";
+        height: 22px;
+        width: 22px;
+        left:3px;
+        bottom:3px;
+        background-color: hsl(200, 60%, 99%);
+        transition: .4s;
+        border-radius: 30px;
+    }
+    input:checked + .slider {
+        background-color:hsl(3, 77%, 44%);
+    }
+    .button-switch:focus {
+        border: 1px solid hsl(3, 71%, 56%);
+    }
+    input:checked + .slider::before {
+        transform: translateX(26px);
+    }
+</style>
