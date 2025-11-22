@@ -2,7 +2,7 @@
     <section class="extension-section">
         <h1>Extension List</h1>
         <div class="wrap">
-            <button class="btn-margin" id="all">All</button>
+            <button class="btn-margin active" >All</button>
             <button class="btn-margin" id="active">Active</button>
             <button class="btn-margin" id="inactive">Inactive</button>
         </div>
@@ -36,18 +36,22 @@ export default {
         display: flex;
         gap:0.5rem
     }
-    button{
+    .btn-margin{
         color:hsl(227, 75%, 14%);
         padding: 7px 15px;
         border-radius: 30px;
         border: none;
         background-color: hsl(200, 60%, 99%);
         box-shadow:0 1.5px 5px hsl(217, 61%, 90%);
-        font-size: 15px;
+        font-size: 16px;
         cursor: pointer;
     }
     .btn-margin{
         flex: 1;
+    }
+    .active {
+        background-color: hsl(3, 77%, 44%);
+        color: hsl(200, 60%, 99%);
     }
     @media (max-width: 470px ) {
         .extension-section{

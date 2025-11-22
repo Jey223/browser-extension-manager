@@ -11,12 +11,15 @@
             </div>
             <div class="card-btns">
                 <button class="remove">Remove</button>
-                <button class="button-switch" >
-                    <label class="switch">
-                        <input type="checkbox" v-model="isChecked" />
-                        <span class="slider"></span>
-                    </label>
-                </button>
+                <!-- <button class="button-switch" > -->
+                    <div class="button-switch">
+                        <label class="switch">
+                            <input type="checkbox" v-model="isChecked" />
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    
+                <!-- </button> -->
             </div>
         </div>
 </template>
@@ -68,14 +71,6 @@ export default {
 </script>
 
 <style scoped>
-    /* .card-section{
-        width:100%;
-        margin-top: 15px;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.8rem;
-        background-color: red;
-    } */
     .card{
         flex-grow: 1;
         width: calc(33.3333% - 0.8rem);
@@ -90,7 +85,7 @@ export default {
         flex-wrap: wrap;
         text-align: left;
         gap: 0.5rem;
-        margin-bottom: 30px;
+        margin-bottom: 20px;
     }
     .card-img  {
         margin-right: 10px;
@@ -106,11 +101,11 @@ export default {
     .card-info-text h2{
         color: hsl(227, 75%, 14%);
         margin: 0px;
-        font-size: 22px;
+        font-size: 20px;
     }
     .card-info-text p{
         color: hsl(226, 11%, 37%);
-        font-size: 18px;
+        font-size: 16px;
     }
     .card-btns{
         display: flex;
@@ -127,16 +122,16 @@ export default {
         font-size: 15px;
         cursor: pointer;
     }
-    .button-switch{
-        border:none;
+    /* .button-switch:focus{
+        border: 1px solid black;
         padding: 2px;
         border-radius: 34px;
-    }
+    } */
     .switch{
         position: relative;
         display: inline-block;
-        width: 55px;
-        height: 30px;
+        width: 45px;
+        height: 25px;
     }
     .switch input{
         opacity: 0;
@@ -157,8 +152,8 @@ export default {
     .slider::before{
         position: absolute;
         content: "";
-        height: 22px;
-        width: 22px;
+        height: 20px;
+        width: 20px;
         left:3px;
         bottom:3px;
         background-color: hsl(200, 60%, 99%);
@@ -172,6 +167,17 @@ export default {
         border: 1px solid hsl(3, 71%, 56%);
     }
     input:checked + .slider::before {
-        transform: translateX(26px);
+        transform: translateX(20px);
+    }
+    @media (max-width: 768px) {
+        .card{
+            width: calc(50% - 0.8rem);
+        }
+    }
+     @media (max-width: 426px) {
+        .card{
+            width: 100%;
+
+        }
     }
 </style>
