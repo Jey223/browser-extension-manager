@@ -1,12 +1,12 @@
 <template>
-    <section class="header-section" :class="{darkSection: !lightMode}">
+    <section class="header-section" :class="{darkHeader: darkMode}">
         <div class="logo">
-            <img v-if="lightMode" :src="require('../assets/images/' + logoSrc)" />
-            <img v-else class="logoImg" :src="require('../assets/images/' + logoSrc)" />
+            <img v-if="darkMode" class="logoImg" :src="require('../assets/images/logo.svg')" />
+            <img v-else  :src="require('../assets/images/logo.svg')" />
         </div>
-        <button class="mode-class" @click="toggleDarkMode" :style="{backgroundColor : lightMode ? 'hsl(0, 0%, 93%)' : 'hsl(226, 11%, 37%)' }">
-            <img v-if="lightMode" src="../assets/images/icon-moon.svg" />
-            <img v-else src="../assets/images/icon-sun.svg" />
+        <button class="mode-class" @click="toggleDarkMode" :class="toggleClasses">
+             <img v-if="darkMode" src="../assets/images/icon-sun.svg" />
+            <img v-else src="../assets/images/icon-moon.svg" />
         </button>
     </section>
 </template>
@@ -14,17 +14,28 @@
 <script>
     export default {
         computed: {
-            
+            toggleClasses(){
+                if(this.darkMode){
+                    return 'dark-toggle-mode'
+                }else {
+                     return 'light-toggle-mode'
+                }
+            }
         },
         data() {
             return {
-                logoSrc:'logo.svg',
-                lightMode: true
+                darkMode: false
             }
         },
         methods: {
             toggleDarkMode(){
-                this.lightMode = !this.lightMode
+                this.darkMode = !this.darkMode
+                this.setDarkBody()
+            },
+            setDarkBody(){
+                const body = document.body;
+                body.classList.toggle('dark-body')
+                console.log(body.className)
             }
         }
     }
@@ -41,8 +52,9 @@
         box-shadow:0 1.5px 4px hsl(217, 61%, 90%);
         margin: 0px;
     }
-    .darkSection{
-        background-color:hsl(225, 23%, 24%);
+    .darkHeader{
+        background-color:hsl(226, 25%, 17%);
+         box-shadow:0 1px 0 hsl(225, 23%, 24%);
     }
     img.logoImg{
         filter: invert(100%) hue-rotate(182deg) brightness(102%) ;
@@ -57,6 +69,19 @@
         border-radius: 10px;
         cursor: pointer;
     }
+    .light-toggle-mode{
+        background-color:hsl(0, 0%, 93%);
+    }
+    .dark-toggle-mode{
+        background-color:hsl(225, 23%, 24%) ;
+    }
+    .light-toggle-mode:hover {
+        background-color: hsl(0, 0%, 78%);
+    }
+    .dark-toggle-mode:hover{
+        background-color:hsl(226, 11%, 37%) ;
+    }
+    
     @media (max-width: 768px) {
         .header-section{
             width: 100%;

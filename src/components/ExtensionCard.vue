@@ -116,8 +116,7 @@ export default {
         color:hsl(227, 75%, 14%);
         padding: 7px 15px;
         border-radius: 30px;
-        border: none;
-        box-shadow:0px 0px 2px 1.5px hsl(0, 0%, 93%);
+        border: 2px solid hsl(0, 0%, 93%) ;
         background-color: hsl(200, 60%, 99%);
         font-size: 15px;
         cursor: pointer;

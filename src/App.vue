@@ -128,7 +128,9 @@ body {
   font-family: "Noto Sans", sans-serif;
   margin: 0;
 }
-
+.dark-body {
+        background: linear-gradient(180deg, #040918 0%, #091540 100%);
+}
 .card-section{
   display: flex;
   flex-wrap: wrap;
