@@ -4,7 +4,7 @@
         <div class="wrap">
             <button class="btn-margin" id="all">All</button>
             <button class="btn-margin" id="active">Active</button>
-            <button id="inactive">Inactive</button>
+            <button class="btn-margin" id="inactive">Inactive</button>
         </div>
     </section>
    
@@ -21,15 +21,20 @@ export default {
 
 <style scoped>
     .extension-section {
-        margin-top: 30px;
+        margin: 33px 0px;
         display: flex;
-        /* flex-wrap:wrap; */
+        flex-wrap:wrap;
         justify-content: space-between;
         align-items: center;
     }
-    h1{
+    .extension-section h1{
         color: hsl(227, 75%, 14%);
         font-size: 30px;
+        margin: 0;
+    }
+    .wrap{
+        display: flex;
+        gap:0.5rem
     }
     button{
         color:hsl(227, 75%, 14%);
@@ -42,6 +47,16 @@ export default {
         cursor: pointer;
     }
     .btn-margin{
-        margin-right: 5px;
+        flex: 1;
+    }
+    @media (max-width: 470px ) {
+        .extension-section{
+            justify-content: center;
+            align-items: center;
+            gap:1rem;
+        }
+        .extension-section h1{
+        font-size: 30px;
+        }
     }
 </style>

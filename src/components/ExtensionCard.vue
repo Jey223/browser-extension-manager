@@ -1,7 +1,5 @@
 <template>
-    <!-- <section class="card-section"> -->
-        <li class="card"> 
-            <h3>{{ isChecked ? 'TRUE' : 'FALSE' }}</h3>   
+        <div class="card"> 
             <div class="card-info">
                 <div class="card-img">
                     <img :src="logo"/>
@@ -20,7 +18,7 @@
                     </label>
                 </button>
             </div>
-        </li>
+        </div>
 </template>
 
 <script>
@@ -79,10 +77,8 @@ export default {
         background-color: red;
     } */
     .card{
-        /* flex: 1; */
-        width: 100%;
-        min-width: 400px;
-        max-width: 410px;
+        flex-grow: 1;
+        width: calc(33.3333% - 0.8rem);
         padding:20px;
         background-color:hsl(200, 60%, 99%);
         border-radius: 20px;

@@ -1,9 +1,8 @@
 <template>
-  <!-- <div class="body-section"> -->
     <section class="lightBody">
       <TheHeader />
       <ExtensionLists />
-      <ul>
+      <div class="card-section">
         <ExtensionCard 
           v-for="extension in extensions"
           :key="extension.name"
@@ -13,16 +12,16 @@
           :description="extension.description"
           :isactive="extension.isActive"
           @toggle-is-active="toggleActiveStatus" />
-      </ul>
+      </div>
       
     </section>
-  <!-- </div> -->
 </template>
 
 <script>
 import ExtensionCard from './components/ExtensionCard.vue';
 import ExtensionLists from './components/ExtensionLists.vue';
 import TheHeader from './components/TheHeader.vue';
+// import data from '../src/data.json'
 
 export default {
   components: {
@@ -110,45 +109,42 @@ export default {
   },
   methods: {
     toggleActiveStatus(extensionId){
-        const identifiedExtension = this.extensions.find((extension) => extension.name === extensionId);
-        identifiedExtension.isActive = !identifiedExtension.isActive
-        console.log(identifiedExtension.isActive)
-        // console.log(identifiedExtension.isActive = !identifiedExtension.isActive)
+      const identifiedExtension = this.extensions.find((extension) => extension.name === extensionId);
+      identifiedExtension.isActive = !identifiedExtension.isActive
+      console.log(identifiedExtension.isActive)
     }
   }
-  
 }
 </script>
 
 <style>
-*{
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@100..900&display=swap');
+
+*, *::before, *::after{
   box-sizing: border-box;
 }
 body {
   background: linear-gradient(180deg, #EBF2FC 0%, #EEF8F9 100%); 
+  font-family: "Noto Sans", sans-serif;
+  margin: 0;
 }
-section {
-  width: 93%;
-  margin: 0 auto;
-}
-#app {
-  /* font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale; */
-  /* text-align: center; */
-  color: #2c3e50;
-  background: linear-gradient(180deg, #EBF2FC 0%, #EEF8F9 100%); 
-  padding: 30px 0;
-}
-#app ul{
-  margin: 15px auto 0 auto;
-  padding: auto;
-  list-style: none;
-  width:93%;
-  display:flex;
+
+.card-section{
+  display: flex;
   flex-wrap: wrap;
   gap: 0.8rem;
-  width:100%;
   margin-top: 15px;
+
+}
+#app {
+  width: 90%;
+  padding: 30px 0;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  #app{
+    width: 95%;
+  }
 }
 </style>
