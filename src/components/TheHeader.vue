@@ -4,7 +4,7 @@
             <img v-if="darkMode" class="logoImg" :src="require('../assets/images/logo.svg')" />
             <img v-else  :src="require('../assets/images/logo.svg')" />
         </div>
-        <button class="mode-class" @click="toggleDarkMode" :class="toggleClasses">
+        <button class="mode-class" @click="toggleMode" :class="toggleClasses">
              <img v-if="darkMode" src="../assets/images/icon-sun.svg" />
             <img v-else src="../assets/images/icon-moon.svg" />
         </button>
@@ -22,21 +22,18 @@
                 }
             }
         },
-        data() {
-            return {
-                darkMode: false
+        props: {
+            darkMode: {
+                type:Boolean,
+                required:false,
+                default:false
             }
         },
         methods: {
-            toggleDarkMode(){
-                this.darkMode = !this.darkMode
-                this.setDarkBody()
+            toggleMode(){
+                this.$emit('toggle-dark-mode')
             },
-            setDarkBody(){
-                const body = document.body;
-                body.classList.toggle('dark-body')
-                console.log(body.className)
-            }
+            
         }
     }
 </script>
@@ -54,7 +51,7 @@
     }
     .darkHeader{
         background-color:hsl(226, 25%, 17%);
-         box-shadow:0 1px 0 hsl(225, 23%, 24%);
+         box-shadow:0 0px 0 hsl(225, 23%, 24%);
     }
     img.logoImg{
         filter: invert(100%) hue-rotate(182deg) brightness(102%) ;

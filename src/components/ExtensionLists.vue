@@ -1,10 +1,10 @@
 <template>
     <section class="extension-section">
-        <h1>Extension List</h1>
+        <h1 class="h1-style" :class="darkMode ? 'lighth1' : 'darkh1'">Extension List</h1>
         <div class="wrap">
-            <button class="btn-margin active" >All</button>
-            <button class="btn-margin" id="active">Active</button>
-            <button class="btn-margin" id="inactive">Inactive</button>
+            <button :class="toggleBtnStyle " class="active btn-margin">All</button>
+            <button class="btn-margin" :class="toggleBtnStyle" id="active">Active</button>
+            <button class="btn-margin" :class="toggleBtnStyle" id="inactive">Inactive</button>
         </div>
     </section>
    
@@ -13,7 +13,17 @@
 <script>
 
 export default {
-    components: {
+    props: {
+        darkMode: {
+            type:Boolean,
+            required:false,
+            default:false
+        }
+    },
+    computed: {
+        toggleBtnStyle(){
+          return  this.darkMode ? 'btn-dark' : 'btn-light' 
+        }
     }
 }
 </script>
@@ -27,28 +37,43 @@ export default {
         justify-content: space-between;
         align-items: center;
     }
-    .extension-section h1{
-        color: hsl(227, 75%, 14%);
+    .h1-style{
+        /* color: hsl(227, 75%, 14%); */
         font-size: 30px;
         margin: 0;
+    }
+    .darkh1{
+        color: hsl(227, 75%, 14%);
+    }
+    .lighth1{
+        color:hsl(200, 60%, 99%);
     }
     .wrap{
         display: flex;
         gap:0.5rem
     }
     .btn-margin{
-        color:hsl(227, 75%, 14%);
         padding: 7px 15px;
         border-radius: 30px;
         border: none;
-        background-color: hsl(200, 60%, 99%);
-        box-shadow:0 1.5px 5px hsl(217, 61%, 90%);
         font-size: 16px;
         cursor: pointer;
-    }
-    .btn-margin{
         flex: 1;
     }
+    .btn-light{
+        background-color: hsl(200, 60%, 99%);
+        box-shadow:0 1.5px 5px hsl(217, 61%, 90%);
+        color:hsl(227, 75%, 14%);
+    }
+    .btn-dark{
+        background-color:hsl(225, 23%, 24%);
+        color: hsl(200, 60%, 99%);
+        border: 1px solid hsl(226, 11%, 37%);
+    }
+    .btn-dark:hover{
+        background-color:hsl(226, 11%, 37%);
+    }
+    
     .active {
         background-color: hsl(3, 77%, 44%);
         color: hsl(200, 60%, 99%);

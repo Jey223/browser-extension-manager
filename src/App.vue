@@ -1,7 +1,7 @@
 <template>
     <section class="lightBody">
-      <TheHeader />
-      <ExtensionLists />
+      <TheHeader :dark-mode="darkMode" @toggle-dark-mode="toggleDarkMode" />
+      <ExtensionLists  :dark-mode="darkMode"/>
       <div class="card-section">
         <ExtensionCard 
           v-for="extension in extensions"
@@ -11,6 +11,7 @@
           :name="extension.name"
           :description="extension.description"
           :isactive="extension.isActive"
+          :dark-mode="darkMode"
           @toggle-is-active="toggleActiveStatus" />
       </div>
       
@@ -104,7 +105,8 @@ export default {
           "description": "Enhanced developer console with advanced filtering and logging.",
           "isActive": true
       }
-    ]
+    ],
+    darkMode: false,
     }
   },
   methods: {
@@ -112,6 +114,15 @@ export default {
       const identifiedExtension = this.extensions.find((extension) => extension.name === extensionId);
       identifiedExtension.isActive = !identifiedExtension.isActive
       console.log(identifiedExtension.isActive)
+    },
+    toggleDarkMode(){
+      this.darkMode = !this.darkMode
+      this.setDarkBody()
+    },
+    setDarkBody(){
+      const body = document.body;
+      body.classList.toggle('dark-body')
+      // console.log(body.className)
     }
   }
 }

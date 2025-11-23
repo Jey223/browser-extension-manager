@@ -1,16 +1,16 @@
 <template>
-        <div class="card"> 
+        <div class="card" :class="darkMode ? 'card-dark' : 'card-light'"> 
             <div class="card-info">
-                <div class="card-img">
+                <div class="card-img" >
                     <img :src="logo"/>
                 </div>
                 <div class="card-info-text">
-                    <h2>{{ name }}</h2>
-                    <p>{{description}} </p>
+                    <h2 :class="darkMode ? 'dark-mode-info' : 'light-mode-info'">{{ name }}</h2>
+                    <p :class="darkMode ? 'dark-mode-description' : 'light-mode-description'">{{description}} </p>
                 </div>
             </div>
             <div class="card-btns">
-                <button class="remove">Remove</button>
+                <button class="remove" :class="darkMode ? 'remove-dark' : 'remove-light'">Remove</button>
                 <!-- <button class="button-switch" > -->
                     <div class="button-switch">
                         <label class="switch">
@@ -47,6 +47,11 @@ export default {
             type:Boolean,
             required:false,
             default:true,
+        },
+        darkMode: {
+            type:Boolean,
+            required:false,
+            default:false
         }
     },
     emits: ['toggle-is-active'],
@@ -75,10 +80,16 @@ export default {
         flex-grow: 1;
         width: calc(33.3333% - 0.8rem);
         padding:20px;
-        background-color:hsl(200, 60%, 99%);
         border-radius: 20px;
-        box-shadow:0 1.5px 6px hsl(217, 61%, 90%);
         margin-bottom: 5px;
+    }
+    .card-light{
+        background-color:hsl(200, 60%, 99%);
+        box-shadow:0 1.5px 6px hsl(217, 61%, 90%);
+    }
+    .card-dark{
+        background-color:hsl(226, 25%, 17%);
+        border: 1px solid hsl(226, 11%, 37%);
     }
     .card-info {
         display: flex;
@@ -99,13 +110,23 @@ export default {
         flex: 1;
     }
     .card-info-text h2{
-        color: hsl(227, 75%, 14%);
         margin: 0px;
         font-size: 20px;
     }
+    .light-mode-info{
+        color: hsl(227, 75%, 14%);
+    }
+    .dark-mode-info{
+        color: hsl(0, 0%, 93%);
+    }
     .card-info-text p{
-        color: hsl(226, 11%, 37%);
         font-size: 16px;
+    }
+    .light-mode-description{
+        color: hsl(226, 11%, 37%);
+    }
+    .dark-mode-description{
+        color: hsl(217, 61%, 90%);
     }
     .card-btns{
         display: flex;
@@ -113,13 +134,20 @@ export default {
         align-items: center;
     }
     .remove{
-        color:hsl(227, 75%, 14%);
         padding: 7px 15px;
         border-radius: 30px;
-        border: 2px solid hsl(0, 0%, 93%) ;
-        background-color: hsl(200, 60%, 99%);
         font-size: 15px;
         cursor: pointer;
+    }
+    .remove-light{
+        color:hsl(227, 75%, 14%);
+        border: 2px solid hsl(0, 0%, 93%) ;
+        background-color: hsl(200, 60%, 99%);
+    }
+    .remove-dark{
+        color:hsl(200, 60%, 99%) ;
+        background-color:hsl(226, 25%, 17%);
+        border: 1px solid hsl(226, 11%, 37%);
     }
     /* .button-switch:focus{
         border: 1px solid black;
@@ -163,7 +191,7 @@ export default {
         background-color:hsl(3, 77%, 44%);
     }
     .button-switch:focus {
-        border: 1px solid hsl(3, 71%, 56%);
+        border: 1px solid hsl(3, 86%, 64%);
     }
     input:checked + .slider::before {
         transform: translateX(20px);
