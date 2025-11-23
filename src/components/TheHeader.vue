@@ -66,6 +66,9 @@
         border-radius: 10px;
         cursor: pointer;
     }
+    .mode-class:focus {
+        border:1px solid hsl(3, 71%, 56%);
+    }
     .light-toggle-mode{
         background-color:hsl(0, 0%, 93%);
     }
@@ -76,7 +79,7 @@
         background-color: hsl(0, 0%, 78%);
     }
     .dark-toggle-mode:hover{
-        background-color:hsl(226, 11%, 37%) ;
+        background-color:hsl(226, 11%, 37%);
     }
     
     @media (max-width: 768px) {

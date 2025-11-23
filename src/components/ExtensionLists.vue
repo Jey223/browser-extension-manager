@@ -2,7 +2,7 @@
     <section class="extension-section">
         <h1 class="h1-style" :class="darkMode ? 'lighth1' : 'darkh1'">Extension List</h1>
         <div class="wrap">
-            <button :class="toggleBtnStyle " class="active btn-margin">All</button>
+            <button :class="[toggleBtnStyle, darkMode ? 'active-dark' : 'active'] " class="btn-margin">All</button>
             <button class="btn-margin" :class="toggleBtnStyle" id="active">Active</button>
             <button class="btn-margin" :class="toggleBtnStyle" id="inactive">Inactive</button>
         </div>
@@ -22,7 +22,7 @@ export default {
     },
     computed: {
         toggleBtnStyle(){
-          return  this.darkMode ? 'btn-dark' : 'btn-light' 
+          return  this.darkMode ? 'btn-dark' : 'btn-light';
         }
     }
 }
@@ -60,10 +60,16 @@ export default {
         cursor: pointer;
         flex: 1;
     }
+    .btn-margin:focus{
+        border:1px solid hsl(3, 71%, 56%);
+    }
     .btn-light{
         background-color: hsl(200, 60%, 99%);
         box-shadow:0 1.5px 5px hsl(217, 61%, 90%);
         color:hsl(227, 75%, 14%);
+    }
+    .btn-light:hover{
+        background-color: hsl(20, 60%, 99%);
     }
     .btn-dark{
         background-color:hsl(225, 23%, 24%);
@@ -77,6 +83,15 @@ export default {
     .active {
         background-color: hsl(3, 77%, 44%);
         color: hsl(200, 60%, 99%);
+    }
+    .active:hover{
+        background-color:hsl(3, 86%, 64%);
+    }
+    .active-dark{
+        background-color: hsl(3, 71%, 56%);
+    }
+    .active-dark:hover{
+        background-color:hsl(3, 77%, 44%);
     }
     @media (max-width: 470px ) {
         .extension-section{

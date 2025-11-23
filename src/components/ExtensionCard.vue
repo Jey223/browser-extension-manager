@@ -15,7 +15,7 @@
                     <div class="button-switch">
                         <label class="switch">
                             <input type="checkbox" v-model="isChecked" />
-                            <span class="slider"></span>
+                            <span class="slider" :class="{'slider-dark slider-darkmode' : darkMode}"></span>
                         </label>
                     </div>
                     
@@ -139,26 +139,34 @@ export default {
         font-size: 15px;
         cursor: pointer;
     }
+    .remove:focus{
+        border:1px solid hsl(3, 77%, 44%);
+    }
     .remove-light{
         color:hsl(227, 75%, 14%);
         border: 2px solid hsl(0, 0%, 93%) ;
         background-color: hsl(200, 60%, 99%);
+    }
+    .remove-light:hover{
+        background-color: hsl(3, 77%, 44%);
     }
     .remove-dark{
         color:hsl(200, 60%, 99%) ;
         background-color:hsl(226, 25%, 17%);
         border: 1px solid hsl(226, 11%, 37%);
     }
-    /* .button-switch:focus{
-        border: 1px solid black;
-        padding: 2px;
-        border-radius: 34px;
-    } */
+    .remove-dark:hover{
+        background-color:hsl(3, 71%, 56%);
+    }
     .switch{
         position: relative;
         display: inline-block;
         width: 45px;
         height: 25px;
+    }
+    .slider:focus{
+        border:1px solid hsl(3, 71%, 56%);
+        padding:2px;
     }
     .switch input{
         opacity: 0;
@@ -176,6 +184,10 @@ export default {
         cursor: pointer;
         border-radius: 34px;
     }
+   
+    .slider-dark {
+        background-color: hsl(226, 11%, 37%);
+    }
     .slider::before{
         position: absolute;
         content: "";
@@ -189,6 +201,15 @@ export default {
     }
     input:checked + .slider {
         background-color:hsl(3, 77%, 44%);
+    }
+    input:checked + .slider:hover {
+        background-color:hsl(3, 71%, 56%);
+    }
+    input:checked + .slider-darkmode{
+        background-color:hsl(3, 71%, 56%);
+    }
+    input:checked + .slider-darkmode:hover {
+        background-color:hsl(3, 86%, 64%);
     }
     .button-switch:focus {
         border: 1px solid hsl(3, 86%, 64%);
