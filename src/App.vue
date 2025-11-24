@@ -1,18 +1,24 @@
 <template>
     <section class="lightBody">
       <TheHeader :dark-mode="darkMode" @toggle-dark-mode="toggleDarkMode" />
-      <ExtensionLists  :dark-mode="darkMode"/>
-      <div class="card-section">
+      <ExtensionLists  
+          @filter-mode="setFilter"          
+          :dark-mode="darkMode" 
+      />
+          <!-- :filter-mode="filterMode" -->
+      <div class="card-section" v-if="filteredCards.length">
         <ExtensionCard 
-          v-for="extension in extensions"
+          v-for="extension in filteredCards"
           :key="extension.name"
           :id="extension.name"
           :logo="extension.logo"
           :name="extension.name"
           :description="extension.description"
-          :isactive="extension.isActive"
           :dark-mode="darkMode"
-          @toggle-is-active="toggleActiveStatus" />
+          v-model:is-active="extension.isActive"  
+        />
+          <!-- :is-active="extension.isActive"
+        @toggle-is-active="toggleActiveStatus" -->
       </div>
       
     </section>
@@ -107,14 +113,32 @@ export default {
       }
     ],
     darkMode: false,
+    filterMode: "all",
+    }
+  },
+  computed:{
+    filteredCards(){
+        console.log(this.filterMode)
+        if(this.filterMode === 'active'){
+          console.log(this.filterMode)
+          return this.extensions.filter(card => card.isActive === true);
+        } 
+        if (this.filterMode === 'inactive'){
+          console.log(this.filterMode)
+          return this.extensions.filter(card => card.isActive === false);
+        }  
+        return this.extensions;
     }
   },
   methods: {
-    toggleActiveStatus(extensionId){
-      const identifiedExtension = this.extensions.find((extension) => extension.name === extensionId);
-      identifiedExtension.isActive = !identifiedExtension.isActive
-      console.log(identifiedExtension.isActive)
+    setFilter(type){
+      this.filterMode = type;
     },
+    // toggleActiveStatus(extensionId){
+    //   const identifiedExtension = this.extensions.find((extension) => extension.name === extensionId);
+    //   identifiedExtension.isActive = !identifiedExtension.isActive
+    //   console.log(identifiedExtension.isActive)
+    // },
     toggleDarkMode(){
       this.darkMode = !this.darkMode
       this.setDarkBody()
@@ -122,7 +146,6 @@ export default {
     setDarkBody(){
       const body = document.body;
       body.classList.toggle('dark-body')
-      // console.log(body.className)
     }
   }
 }

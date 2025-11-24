@@ -14,8 +14,8 @@
                 <!-- <button class="button-switch" > -->
                     <div class="button-switch">
                         <label class="switch">
-                            <input type="checkbox" v-model="isChecked" />
-                            <span class="slider" :class="{'slider-dark slider-darkmode' : darkMode}"></span>
+                            <input type="checkbox" :checked="isActive" @change="$emit('update:isActive', $event.target.checked)" />
+                            <span class="slider sliderTrue" :class="[darkModeSlider, sliderTrue]"></span>
                         </label>
                     </div>
                     
@@ -45,19 +45,26 @@ export default {
         },
         isActive: {
             type:Boolean,
-            required:false,
-            default:true,
+            required:true,
         },
         darkMode: {
             type:Boolean,
             required:false,
             default:false
-        }
+        },
     },
     emits: ['toggle-is-active'],
+    computed: {
+        darkModeSlider(){
+            return {'slider-dark slider-darkmode' : this.darkMode}
+        },
+        sliderTrue(){
+            return {'slider-true' : this.isActive}
+        }
+    },
     data(){
         return{
-            isChecked: false,
+            // isChecked: false,
             data: ''
         }
     },
@@ -67,9 +74,9 @@ export default {
         }    
     },
     methods: {
-        toggleIsActive(){
-             this.$emit('toggle-is-active', this.id)
-        }
+        // toggleIsActive(){
+        //      this.$emit('toggle-is-active', this.id)
+        // }
     }
 }
 
@@ -164,10 +171,7 @@ export default {
         width: 45px;
         height: 25px;
     }
-    .slider:focus{
-        border:1px solid hsl(3, 71%, 56%);
-        padding:2px;
-    }
+    
     .switch input{
         opacity: 0;
         width: 0;
@@ -184,7 +188,10 @@ export default {
         cursor: pointer;
         border-radius: 34px;
     }
-   
+   .slider:focus{
+        border:1px solid hsl(3, 71%, 56%);
+        padding:2px;
+    }
     .slider-dark {
         background-color: hsl(226, 11%, 37%);
     }
@@ -202,7 +209,7 @@ export default {
     input:checked + .slider {
         background-color:hsl(3, 77%, 44%);
     }
-    input:checked + .slider:hover {
+    input:checked + .slider-true:hover {
         background-color:hsl(3, 71%, 56%);
     }
     input:checked + .slider-darkmode{

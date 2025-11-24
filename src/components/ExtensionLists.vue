@@ -2,9 +2,10 @@
     <section class="extension-section">
         <h1 class="h1-style" :class="darkMode ? 'lighth1' : 'darkh1'">Extension List</h1>
         <div class="wrap">
-            <button :class="[toggleBtnStyle, darkMode ? 'active-dark' : 'active'] " class="btn-margin">All</button>
-            <button class="btn-margin" :class="toggleBtnStyle" id="active">Active</button>
-            <button class="btn-margin" :class="toggleBtnStyle" id="inactive">Inactive</button>
+            <button @click="handleClicks" :class="isClickedBtn" class="btn-margin">All</button>
+            <!-- [ darkMode ? 'active-dark' : 'active' ] -->
+            <button @click="$emit('filter-mode', 'active')" class="btn-margin" :class="toggleBtnStyle" id="active">Active</button>
+            <button @click="$emit('filter-mode', 'inactive')" class="btn-margin" :class="toggleBtnStyle" id="inactive">Inactive</button>
         </div>
     </section>
    
@@ -18,11 +19,39 @@ export default {
             type:Boolean,
             required:false,
             default:false
+        },
+        
+        // filterMode: {
+        //     type: String,
+        //     required: true,
+        // }
+    },
+    data(){
+        return{
+            isClicked: false,
         }
     },
     computed: {
-        toggleBtnStyle(){
-          return  this.darkMode ? 'btn-dark' : 'btn-light';
+    toggleNotClickedStyle(){
+        return  this.darkMode ? 'btn-dark' : 'btn-light';
+    },
+    toggleClickedStyle(){
+        return  this.darkMode ? 'btn-light' : 'btn-dark';
+    },
+        
+    },
+    methods: {
+        handleClicks(){
+           this.$emit('filter-mode', 'all') 
+        //    this.isClickedBtn()
+        },
+        isClickedBtn(){
+            this.isClicked = true
+            console.log(this.isClicked)
+            if(this.isClicked === true){
+                return this.toggleClickedStyle
+            }
+            return this.toggleNotClickedStyle
         }
     }
 }
