@@ -1,6 +1,8 @@
 <template>
     <section class="lightBody">
-      <TheHeader :dark-mode="darkMode" @toggle-dark-mode="toggleDarkMode" />
+      <TheHeader 
+      :dark-mode="darkMode" 
+      @toggle-dark-mode="toggleDarkMode" />
       <ExtensionLists  
           @filter-mode="setFilter"          
           :dark-mode="darkMode" 

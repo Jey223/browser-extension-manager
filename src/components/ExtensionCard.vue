@@ -62,11 +62,6 @@ export default {
             return {'slider-true' : this.isActive}
         }
     },
-    // data(){
-    //     return{
-    //         data: ''
-    //     }
-    // },
     watch: {
         isChecked(){
             this.toggleIsActive()

@@ -18,11 +18,6 @@ export default {
             required:false,
             default:false
         },
-        
-        // filterMode: {
-        //     type: String,
-        //     required: true,
-        // }
     },
     data(){
         return{
