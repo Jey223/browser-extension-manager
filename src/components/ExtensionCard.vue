@@ -10,7 +10,7 @@
                 </div>
             </div>
             <div class="card-btns">
-                <button class="remove" :class="darkMode ? 'remove-dark' : 'remove-light'">Remove</button>
+                <button class="remove" :class="darkMode ? 'remove-dark' : 'remove-light'" @click="handleRemoval">Remove</button>
                 <!-- <button class="button-switch" > -->
                     <div class="button-switch">
                         <label class="switch">
@@ -74,9 +74,9 @@ export default {
         }    
     },
     methods: {
-        // toggleIsActive(){
-        //      this.$emit('toggle-is-active', this.id)
-        // }
+        handleRemoval(){
+            this.$emit('remove-card', this.name);
+        }
     }
 }
 

@@ -10,11 +10,13 @@
         <ExtensionCard 
           v-for="extension in filteredCards"
           :key="extension.name"
+          :extension = 'extension'
           :id="extension.name"
           :logo="extension.logo"
           :name="extension.name"
           :description="extension.description"
           :dark-mode="darkMode"
+          @remove-card = "removeCard"
           v-model:is-active="extension.isActive"  
         />
           <!-- :is-active="extension.isActive"
@@ -143,6 +145,10 @@ export default {
     setDarkBody(){
       const body = document.body;
       body.classList.toggle('dark-body')
+    },
+    removeCard(nameid){
+      this.extensions = this.extensions.filter(extension =>
+         extension.name !== nameid)
     }
   }
 }
