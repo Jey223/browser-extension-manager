@@ -52,7 +52,6 @@ export default {
         handleClickAll(buttonClicked, mode){
            this.isClicked = buttonClicked;
            this.$emit('filter-mode', mode) 
-        //    console.log(this.isClicked)
         },
        
     }

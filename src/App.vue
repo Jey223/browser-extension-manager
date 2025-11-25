@@ -164,6 +164,8 @@ body {
   background: linear-gradient(180deg, #EBF2FC 0%, #EEF8F9 100%); 
   font-family: "Noto Sans", sans-serif;
   margin: 0;
+  /* height: 100%; */
+  min-height: 100vh;
 }
 .dark-body {
         background: linear-gradient(180deg, #040918 0%, #091540 100%);
