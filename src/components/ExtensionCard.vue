@@ -80,9 +80,13 @@ export default {
     .card{
         flex-grow: 1;
         max-width: calc(33.3333% - 0.8rem);
+        height: 250px;
         padding:20px;
         border-radius: 20px;
         margin-bottom: 5px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
     }
     .card-light{
         background-color:hsl(200, 60%, 99%);
@@ -93,11 +97,12 @@ export default {
         border: 1px solid hsl(226, 11%, 37%);
     }
     .card-info {
+        align-items: baseline;
         display: flex;
         flex-wrap: wrap;
         text-align: left;
         gap: 0.5rem;
-        margin-bottom: 20px;
+        /* margin-bottom: 20px; */
     }
     .card-img  {
         margin-right: 10px;
