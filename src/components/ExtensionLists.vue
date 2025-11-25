@@ -2,10 +2,9 @@
     <section class="extension-section">
         <h1 class="h1-style" :class="darkMode ? 'lighth1' : 'darkh1'">Extension List</h1>
         <div class="wrap">
-            <button @click="handleClicks" :class="isClickedBtn" class="btn-margin">All</button>
-            <!-- [ darkMode ? 'active-dark' : 'active' ] -->
-            <button @click="$emit('filter-mode', 'active')" class="btn-margin" :class="toggleBtnStyle" id="active">Active</button>
-            <button @click="$emit('filter-mode', 'inactive')" class="btn-margin" :class="toggleBtnStyle" id="inactive">Inactive</button>
+            <button :class="button1Class" class="btn-margin" @click="handleClickAll('allbtn', 'all')">All</button>
+            <button :class="button2Class" class="btn-margin" @click="handleClickAll('activebtn', 'active')">Active</button>
+            <button @click="handleClickAll('inactivebtn', 'inactive')" class="btn-margin" :class="button3Class" id="inactive">Inactive</button>
         </div>
     </section>
    
@@ -28,31 +27,34 @@ export default {
     },
     data(){
         return{
-            isClicked: false,
+            isClicked: 'allbtn',
         }
     },
     computed: {
-    toggleNotClickedStyle(){
-        return  this.darkMode ? 'btn-dark' : 'btn-light';
-    },
-    toggleClickedStyle(){
-        return  this.darkMode ? 'btn-light' : 'btn-dark';
-    },
-        
+        button1Class(){
+             return this.isClicked === 'allbtn'
+            ? (this.darkMode ? 'active-dark' : 'active')
+            : (this.darkMode ? 'btn-dark' : 'btn-light')
+        },
+         button2Class(){
+            return this.isClicked === 'activebtn'
+            ? (this.darkMode ? 'active-dark' : 'active')
+            : (this.darkMode ? 'btn-dark' : 'btn-light')
+        },
+        button3Class(){
+            return this.isClicked === 'inactivebtn'
+            ? (this.darkMode ? 'active-dark' : 'active')
+            : (this.darkMode ? 'btn-dark' : 'btn-light')
+        },
     },
     methods: {
-        handleClicks(){
-           this.$emit('filter-mode', 'all') 
-        //    this.isClickedBtn()
+        
+        handleClickAll(buttonClicked, mode){
+           this.isClicked = buttonClicked;
+           this.$emit('filter-mode', mode) 
+        //    console.log(this.isClicked)
         },
-        isClickedBtn(){
-            this.isClicked = true
-            console.log(this.isClicked)
-            if(this.isClicked === true){
-                return this.toggleClickedStyle
-            }
-            return this.toggleNotClickedStyle
-        }
+       
     }
 }
 </script>

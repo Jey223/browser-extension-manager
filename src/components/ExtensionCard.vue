@@ -85,7 +85,7 @@ export default {
 <style scoped>
     .card{
         flex-grow: 1;
-        width: calc(33.3333% - 0.8rem);
+        max-width: calc(33.3333% - 0.8rem);
         padding:20px;
         border-radius: 20px;
         margin-bottom: 5px;
@@ -226,13 +226,12 @@ export default {
     }
     @media (max-width: 768px) {
         .card{
-            width: calc(50% - 0.8rem);
+            max-width: calc(50% - 0.8rem);
         }
     }
      @media (max-width: 426px) {
         .card{
-            width: 100%;
-
+            max-width: 100%;
         }
     }
 </style>

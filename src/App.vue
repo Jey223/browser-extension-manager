@@ -118,13 +118,10 @@ export default {
   },
   computed:{
     filteredCards(){
-        console.log(this.filterMode)
         if(this.filterMode === 'active'){
-          console.log(this.filterMode)
           return this.extensions.filter(card => card.isActive === true);
         } 
         if (this.filterMode === 'inactive'){
-          console.log(this.filterMode)
           return this.extensions.filter(card => card.isActive === false);
         }  
         return this.extensions;
