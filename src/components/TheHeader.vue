@@ -1,12 +1,12 @@
 <template>
     <section class="header-section" :class="{darkHeader: darkMode}">
         <div class="logo">
-            <img v-if="darkMode" class="logoImg" :src="require('../assets/images/logo.svg')" />
-            <img v-else  :src="require('../assets/images/logo.svg')" />
+            <img v-if="darkMode" class="logoImg" src="/assets/images/logo.svg" />
+            <img v-else  src="/assets/images/logo.svg" />
         </div>
         <button class="mode-class" @click="toggleMode" :class="toggleClasses">
-             <img v-if="darkMode" src="../assets/images/icon-sun.svg" />
-            <img v-else src="../assets/images/icon-moon.svg" />
+             <img v-if="darkMode" src="/assets/images/icon-sun.svg" />
+            <img v-else src="/assets/images/icon-moon.svg" />
         </button>
     </section>
 </template>

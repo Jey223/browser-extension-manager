@@ -4,10 +4,9 @@
         <div class="wrap">
             <button :class="button1Class" class="btn-margin" @click="handleClickAll('allbtn', 'all')">All</button>
             <button :class="button2Class" class="btn-margin" @click="handleClickAll('activebtn', 'active')">Active</button>
-            <button @click="handleClickAll('inactivebtn', 'inactive')" class="btn-margin" :class="button3Class" id="inactive">Inactive</button>
+            <button :class="button3Class" class="btn-margin" @click="handleClickAll('inactivebtn', 'inactive')">Inactive</button>
         </div>
     </section>
-   
 </template>
 
 <script>
@@ -48,12 +47,10 @@ export default {
         },
     },
     methods: {
-        
         handleClickAll(buttonClicked, mode){
            this.isClicked = buttonClicked;
            this.$emit('filter-mode', mode) 
         },
-       
     }
 }
 </script>
