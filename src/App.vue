@@ -13,16 +13,10 @@
           v-for="extension in filteredCards"
           :key="extension.name"
           :extension = 'extension'
-          :id="extension.name"
-          :logo="extension.logo"
-          :name="extension.name"
-          :description="extension.description"
           :dark-mode="darkMode"
           @remove-card = "removeCard"
-          v-model:is-active="extension.isActive"  
+          @update = 'changeIsActiveState'
         />
-          <!-- :is-active="extension.isActive"
-        @toggle-is-active="toggleActiveStatus" -->
       </div>
       
     </section>
@@ -43,9 +37,20 @@ export default {
   data(){
     return {
       extensions : data,
-    darkMode: false,
-    filterMode: "all",
+      darkMode: false,
+      filterMode: "all",
     }
+  },
+  
+  created () {
+    const storedData = localStorage.getItem('extensionlist')
+    if(storedData){
+      this.extensions = JSON.parse(storedData)
+      console.log(this.extensions)
+    } else {
+      localStorage.setItem('extensionlist', JSON.stringify(this.extensions));
+    }
+
   },
   computed:{
     filteredCards(){
@@ -58,15 +63,36 @@ export default {
         return this.extensions;
     }
   },
+ 
+  // watch: {
+    // extensions(newValue){
+    //   // if(newValue){
+    //   //   localStorage.setItem('extensionlist', JSON.stringify(newValue));
+    //   //   console.log(newValue)
+    //   // }
+    // }
+    //  extensions: {
+    //   handler (newValue) {
+    //       localStorage.setItem('extensionlist', JSON.stringify(newValue));
+    //   },
+    //   deep: true,
+    // }
+  // },
   methods: {
+    changeIsActiveState(name, isActive){
+      this.extensions.find((extension) => {
+        if(extension.name === name){
+        extension.isActive = isActive
+        }
+      }
+    );
+    localStorage.setItem('extensionlist', JSON.stringify(this.extensions));
+
+
+    },
     setFilter(type){
       this.filterMode = type;
     },
-    // toggleActiveStatus(extensionId){
-    //   const identifiedExtension = this.extensions.find((extension) => extension.name === extensionId);
-    //   identifiedExtension.isActive = !identifiedExtension.isActive
-    //   console.log(identifiedExtension.isActive)
-    // },
     toggleDarkMode(){
       this.darkMode = !this.darkMode
       this.setDarkBody()
@@ -75,9 +101,10 @@ export default {
       const body = document.body;
       body.classList.toggle('dark-body')
     },
-    removeCard(nameid){
+    removeCard(name){
       this.extensions = this.extensions.filter(extension =>
-         extension.name !== nameid)
+         extension.name !== name)
+      localStorage.setItem('extensionlist', JSON.stringify(this.extensions));
     }
   }
 }

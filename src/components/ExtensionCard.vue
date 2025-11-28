@@ -2,24 +2,21 @@
         <div class="card" :class="darkMode ? 'card-dark' : 'card-light'"> 
             <div class="card-info">
                 <div class="card-img" >
-                    <img :src="logo"/>
+                    <img :src="extension.logo"/>
                 </div>
                 <div class="card-info-text">
-                    <h2 :class="darkMode ? 'dark-mode-info' : 'light-mode-info'">{{ name }}</h2>
-                    <p :class="darkMode ? 'dark-mode-description' : 'light-mode-description'">{{description}} </p>
+                    <h2 :class="darkMode ? 'dark-mode-info' : 'light-mode-info'">{{ extension.name }}</h2>
+                    <p :class="darkMode ? 'dark-mode-description' : 'light-mode-description'">{{extension.description}} </p>
                 </div>
             </div>
             <div class="card-btns">
                 <button class="remove" :class="darkMode ? 'remove-dark' : 'remove-light'" @click="handleRemoval">Remove</button>
-                <!-- <button class="button-switch" > -->
                     <div class="button-switch">
                         <label class="switch">
-                            <input type="checkbox" :checked="isActive" @change="$emit('update:isActive', $event.target.checked)" />
-                            <span class="slider sliderTrue" :class="[darkModeSlider, sliderTrue]"></span>
+                            <input type="checkbox" v-model="isActive" @change="changeExtensionValue()" />
+                            <span class="toggle-active toggle-active-true" :class="[darkModeToggleActive, toggleActiveIsTrue]"></span>
                         </label>
                     </div>
-                    
-                <!-- </button> -->
             </div>
         </div>
 </template>
@@ -27,25 +24,9 @@
 <script>
 export default {
     props: {
-        id:{
-            type:String,
-            required:true,
-        },
-        logo: {
-            type:String,
+        extension: {
+            type:Object,
             required: true,
-        },
-        name:{
-            type:String,
-            required:true,
-        },
-        description:{
-            type:String,
-            required:true,
-        },
-        isActive: {
-            type:Boolean,
-            required:true,
         },
         darkMode: {
             type:Boolean,
@@ -53,24 +34,28 @@ export default {
             default:false
         },
     },
-    emits: ['toggle-is-active'],
-    computed: {
-        darkModeSlider(){
-            return {'slider-dark slider-darkmode' : this.darkMode}
-        },
-        sliderTrue(){
-            return {'slider-true' : this.isActive}
+    data(){
+        return {
+            isActive: this.extension.isActive
         }
     },
-    watch: {
-        isChecked(){
-            this.toggleIsActive()
-        }    
+    emits: ['remove-card', 'update'],
+    computed: {
+        darkModeToggleActive(){
+            return {'toggle-active-dark toggle-active-darkmode' : this.darkMode}
+        },
+        toggleActiveIsTrue(){
+            return {'toggle-active-true' : this.extension.isActive}
+        },
     },
     methods: {
         handleRemoval(){
-            this.$emit('remove-card', this.name);
+            this.$emit('remove-card', this.extension.name);
+        },
+        changeExtensionValue(){
+            this.$emit('update', this.extension.name, this.isActive )
         }
+
     }
 }
 
@@ -176,7 +161,7 @@ export default {
         width: 0;
         height: 0;
     }
-    .slider{
+    .toggle-active{
         position: absolute;
         background-color: hsl(0, 0%, 78%);
         top: 0;
@@ -187,14 +172,14 @@ export default {
         cursor: pointer;
         border-radius: 34px;
     }
-   .slider:focus{
+   .toggle-active:focus{
         border:1px solid hsl(3, 71%, 56%);
         padding:2px;
     }
-    .slider-dark {
+    .toggle-active-dark {
         background-color: hsl(226, 11%, 37%);
     }
-    .slider::before{
+    .toggle-active::before{
         position: absolute;
         content: "";
         height: 20px;
@@ -205,22 +190,22 @@ export default {
         transition: .4s;
         border-radius: 30px;
     }
-    input:checked + .slider {
+    input:checked + .toggle-active {
         background-color:hsl(3, 77%, 44%);
     }
-    input:checked + .slider-true:hover {
+    input:checked + .toggle-active-true:hover {
         background-color:hsl(3, 71%, 56%);
     }
-    input:checked + .slider-darkmode{
+    input:checked + .toggle-active-darkmode{
         background-color:hsl(3, 71%, 56%);
     }
-    input:checked + .slider-darkmode:hover {
+    input:checked + .toggle-active-darkmode:hover {
         background-color:hsl(3, 86%, 64%);
     }
     .button-switch:focus {
         border: 1px solid hsl(3, 86%, 64%);
     }
-    input:checked + .slider::before {
+    input:checked + .toggle-active::before {
         transform: translateX(20px);
     }
     @media (max-width: 768px) {

@@ -24,6 +24,7 @@ export default {
             isClicked: 'allbtn',
         }
     },
+    emits: ['filter-mode'],
     computed: {
         button1Class(){
              return this.isClicked === 'allbtn'
