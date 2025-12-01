@@ -13,20 +13,17 @@
 
 <script>
     export default {
-        computed: {
-            toggleClasses(){
-                if(this.darkMode){
-                    return 'dark-toggle-mode'
-                }else {
-                     return 'light-toggle-mode'
-                }
-            }
-        },
+       
         props: {
             darkMode: {
                 type:Boolean,
                 required:false,
                 default:false
+            }
+        },
+         computed: {
+            toggleClasses(){
+                return this.darkMode ? 'dark-toggle-mode' : 'light-toggle-mode'
             }
         },
         methods: {

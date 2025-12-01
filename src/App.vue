@@ -44,12 +44,23 @@ export default {
   
   created () {
     const storedData = localStorage.getItem('extensionlist')
+    const savedDarkMode = localStorage.getItem('extensiondarkMode')
+    if(savedDarkMode){
+      this.darkMode = true;
+      console.log(this.darkMode)
+      this.setDarkBody(true)
+    }  else {
+      this.darkMode = false;
+      this.setDarkBody(false)
+    }
+    
     if(storedData){
       this.extensions = JSON.parse(storedData)
-      console.log(this.extensions)
     } else {
       localStorage.setItem('extensionlist', JSON.stringify(this.extensions));
     }
+
+
 
   },
   computed:{
@@ -64,42 +75,30 @@ export default {
     }
   },
  
-  // watch: {
-    // extensions(newValue){
-    //   // if(newValue){
-    //   //   localStorage.setItem('extensionlist', JSON.stringify(newValue));
-    //   //   console.log(newValue)
-    //   // }
-    // }
-    //  extensions: {
-    //   handler (newValue) {
-    //       localStorage.setItem('extensionlist', JSON.stringify(newValue));
-    //   },
-    //   deep: true,
-    // }
-  // },
   methods: {
     changeIsActiveState(name, isActive){
-      this.extensions.find((extension) => {
-        if(extension.name === name){
-        extension.isActive = isActive
-        }
+      const extensionName = this.extensions.find((extension) => extension.name === name);
+      if (extensionName){
+        extensionName.isActive = isActive
       }
-    );
     localStorage.setItem('extensionlist', JSON.stringify(this.extensions));
-
-
     },
+
     setFilter(type){
       this.filterMode = type;
     },
     toggleDarkMode(){
       this.darkMode = !this.darkMode
-      this.setDarkBody()
+      this.setDarkBody(this.darkMode)
+      // localStorage.setItem('extensiondarkMode', this.darkMode)
     },
-    setDarkBody(){
+    setDarkBody(isDark){
       const body = document.body;
-      body.classList.toggle('dark-body')
+      isDark ?
+        body.classList.add('dark-body')
+      :
+        body.classList.remove('dark-body')
+      
     },
     removeCard(name){
       this.extensions = this.extensions.filter(extension =>

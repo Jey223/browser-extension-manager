@@ -14,7 +14,7 @@
                     <div class="button-switch">
                         <label class="switch">
                             <input type="checkbox" v-model="isActive" @change="changeExtensionValue()" />
-                            <span class="toggle-active toggle-active-true" :class="[darkModeToggleActive, toggleActiveIsTrue]"></span>
+                            <span class="toggle-active" :class="[darkModeToggleActive, toggleActiveIsTrue]"></span>
                         </label>
                     </div>
             </div>

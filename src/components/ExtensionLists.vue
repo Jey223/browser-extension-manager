@@ -2,9 +2,9 @@
     <section class="extension-section">
         <h1 class="h1-style" :class="darkMode ? 'lighth1' : 'darkh1'">Extension List</h1>
         <div class="wrap">
-            <button :class="button1Class" class="btn-margin" @click="handleClickAll('allbtn', 'all')">All</button>
-            <button :class="button2Class" class="btn-margin" @click="handleClickAll('activebtn', 'active')">Active</button>
-            <button :class="button3Class" class="btn-margin" @click="handleClickAll('inactivebtn', 'inactive')">Inactive</button>
+            <button :class="{activeButton('all')}" class="btn-margin" @click="handleClickAll('all')">All</button>
+            <button :class="activeButton" class="btn-margin" @click="handleClickAll('active')">Active</button>
+            <button :class="activeButton" class="btn-margin" @click="handleClickAll('inactive')">Inactive</button>
         </div>
     </section>
 </template>
@@ -21,31 +21,50 @@ export default {
     },
     data(){
         return{
-            isClicked: 'allbtn',
+            isClicked: 'all',
         }
     },
     emits: ['filter-mode'],
     computed: {
-        button1Class(){
-             return this.isClicked === 'allbtn'
-            ? (this.darkMode ? 'active-dark' : 'active')
-            : (this.darkMode ? 'btn-dark' : 'btn-light')
+        // activeButton(){
+        //     return this.isClicked === 'active' ? this.buttonClick('active') : this.isClicked === 'inactive' ? this.buttonClick('inactive') : this.buttonClick('all')
+            // if(this.isClicked === 'all'){
+            //     console.log(this.buttonClick('all'))
+            //     return this.buttonClick('all')
+            // } else if (this.isClicked === 'active') {
+            //     return this.buttonClick('active')
+            // } else if (this.isClicked === 'inactive'){
+            //     return this.buttonClick('inactive')
+            // }
         },
-         button2Class(){
-            return this.isClicked === 'activebtn'
-            ? (this.darkMode ? 'active-dark' : 'active')
-            : (this.darkMode ? 'btn-dark' : 'btn-light')
-        },
-        button3Class(){
-            return this.isClicked === 'inactivebtn'
-            ? (this.darkMode ? 'active-dark' : 'active')
-            : (this.darkMode ? 'btn-dark' : 'btn-light')
-        },
-    },
+            
+        // button1Class(){
+        //      return this.isClicked === 'allbtn'
+        //     ? (this.darkMode ? 'active-dark' : 'active')
+        //     : (this.darkMode ? 'btn-dark' : 'btn-light')
+        // },
+        //  button2Class(){
+        //     return this.isClicked === 'activebtn'
+        //     ? (this.darkMode ? 'active-dark' : 'active')
+        //     : (this.darkMode ? 'btn-dark' : 'btn-light')
+        // },
+        // button3Class(){
+        //     return this.isClicked === 'inactivebtn'
+        //     ? (this.darkMode ? 'active-dark' : 'active')
+        //     : (this.darkMode ? 'btn-dark' : 'btn-light')
+        // },
+    // },
     methods: {
-        handleClickAll(buttonClicked, mode){
-           this.isClicked = buttonClicked;
+        activeButton(mode){
+           return  (mode)
+            // ? (this.darkMode ? 'active-dark' : 'active')
+            // : (this.darkMode ? 'btn-dark' : 'btn-light')
+        },
+
+        handleClickAll(mode){
+           this.isClicked = mode;
            this.$emit('filter-mode', mode) 
+           this.activeButton(this.isClicked)
         },
     }
 }
