@@ -42,27 +42,28 @@ export default {
     }
   },
   
+
   created () {
+    const storedDarkMode = localStorage.getItem('extensiondarkMode');
+      if(storedDarkMode === 'true'){
+        this.darkMode = true
+        this.setdarkBody(true)
+      }  else if(storedDarkMode === 'false'){
+        this.darkMode = false
+        this.setdarkBody(false)
+      }
+
+
     const storedData = localStorage.getItem('extensionlist')
-    const savedDarkMode = localStorage.getItem('extensiondarkMode')
-    if(savedDarkMode){
-      this.darkMode = true;
-      console.log(this.darkMode)
-      this.setDarkBody(true)
-    }  else {
-      this.darkMode = false;
-      this.setDarkBody(false)
-    }
-    
-    if(storedData){
-      this.extensions = JSON.parse(storedData)
-    } else {
-      localStorage.setItem('extensionlist', JSON.stringify(this.extensions));
-    }
-
-
-
+        if(storedData){
+          this.extensions = JSON.parse(storedData)
+          
+        } else {
+          localStorage.setItem('extensionlist', JSON.stringify(this.extensions));
+        }
   },
+
+
   computed:{
     filteredCards(){
         if(this.filterMode === 'active'){
@@ -89,16 +90,11 @@ export default {
     },
     toggleDarkMode(){
       this.darkMode = !this.darkMode
-      this.setDarkBody(this.darkMode)
-      // localStorage.setItem('extensiondarkMode', this.darkMode)
+      this.setdarkBody(this.darkMode)
+      localStorage.setItem('extensiondarkMode', this.darkMode)
     },
-    setDarkBody(isDark){
-      const body = document.body;
-      isDark ?
-        body.classList.add('dark-body')
-      :
-        body.classList.remove('dark-body')
-      
+    setdarkBody(dark){
+      dark ? document.body.classList.add('dark-body') : document.body.classList.remove('dark-body')
     },
     removeCard(name){
       this.extensions = this.extensions.filter(extension =>

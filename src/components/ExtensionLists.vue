@@ -2,9 +2,9 @@
     <section class="extension-section">
         <h1 class="h1-style" :class="darkMode ? 'lighth1' : 'darkh1'">Extension List</h1>
         <div class="wrap">
-            <button :class="{activeButton('all')}" class="btn-margin" @click="handleClickAll('all')">All</button>
-            <button :class="activeButton" class="btn-margin" @click="handleClickAll('active')">Active</button>
-            <button :class="activeButton" class="btn-margin" @click="handleClickAll('inactive')">Inactive</button>
+            <button :class="activeButton('all')" class="btn-margin" @click="handleClickAll('all')">All</button>
+            <button :class="activeButton('active')" class="btn-margin" @click="handleClickAll('active')">Active</button>
+            <button :class="activeButton('inactive')" class="btn-margin" @click="handleClickAll('inactive')">Inactive</button>
         </div>
     </section>
 </template>
@@ -25,46 +25,17 @@ export default {
         }
     },
     emits: ['filter-mode'],
-    computed: {
-        // activeButton(){
-        //     return this.isClicked === 'active' ? this.buttonClick('active') : this.isClicked === 'inactive' ? this.buttonClick('inactive') : this.buttonClick('all')
-            // if(this.isClicked === 'all'){
-            //     console.log(this.buttonClick('all'))
-            //     return this.buttonClick('all')
-            // } else if (this.isClicked === 'active') {
-            //     return this.buttonClick('active')
-            // } else if (this.isClicked === 'inactive'){
-            //     return this.buttonClick('inactive')
-            // }
-        },
-            
-        // button1Class(){
-        //      return this.isClicked === 'allbtn'
-        //     ? (this.darkMode ? 'active-dark' : 'active')
-        //     : (this.darkMode ? 'btn-dark' : 'btn-light')
-        // },
-        //  button2Class(){
-        //     return this.isClicked === 'activebtn'
-        //     ? (this.darkMode ? 'active-dark' : 'active')
-        //     : (this.darkMode ? 'btn-dark' : 'btn-light')
-        // },
-        // button3Class(){
-        //     return this.isClicked === 'inactivebtn'
-        //     ? (this.darkMode ? 'active-dark' : 'active')
-        //     : (this.darkMode ? 'btn-dark' : 'btn-light')
-        // },
-    // },
+    
     methods: {
-        activeButton(mode){
-           return  (mode)
-            // ? (this.darkMode ? 'active-dark' : 'active')
-            // : (this.darkMode ? 'btn-dark' : 'btn-light')
+        activeButton(activemode){
+            return this.isClicked === activemode 
+            ? (this.darkMode ? 'active-dark' : 'active')
+            : (this.darkMode ? 'btn-dark' : 'btn-light')
         },
-
+       
         handleClickAll(mode){
            this.isClicked = mode;
            this.$emit('filter-mode', mode) 
-           this.activeButton(this.isClicked)
         },
     }
 }
